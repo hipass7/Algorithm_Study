@@ -13,7 +13,7 @@ if cnt % 2 == 0:
     div = cnt + 1 - b
 else:
     div = 1 + b
-    num = cnt + 1 - b    
+    num = cnt + 1 - b
 
 
 
