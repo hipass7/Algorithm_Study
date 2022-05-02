@@ -4,8 +4,6 @@ sys.setrecursionlimit(10**6)
 t = int(input())
 
 def dfs(x, y):
-    global graph
-    global m, n
     if x < 0 or x > (n-1) or y < 0 or y > (m-1):
         return False
     if graph[x][y] == 1:
@@ -17,7 +15,7 @@ def dfs(x, y):
         return True
     return False
 
-for kk in range(t):
+for k in range(t):
     m, n, k = map(int, input().split())
 
     graph = [[0] * m for _ in range(n)]
