@@ -1,47 +1,49 @@
 from collections import deque
 
 n, m, v = map(int, input().split())
-v = v-1
-field = [[None] * n for _ in range(n)]
-
+graph = [[] for _ in range(n)]
+v = v - 1
 for _ in range(m):
     a, b = map(int, input().split())
-    field[a-1][b-1] = 1
-    field[b-1][a-1] = 1
+    graph[a - 1].append(b - 1)
+    graph[b - 1].append(a - 1)
 
-stack = []
-queue = [v]
-result = [v]
-res = []
-rem = [v]
-rem1 = [v]
+for _ in range(n):
+    graph[_].sort()
 
-while True:
-    temp = []
-    for i in range(n):
-        if (field[v][i] == 1) and (i not in rem):
-            temp.append(i)
-        
-    temp = sorted(temp, reverse=True)
-    stack += temp
-    if len(stack) == 0:
-        break
-    v = stack.pop()
-    rem.append(v)
-    if v not in result:
-        result.append(v)
+def bfs(v):
+    visited = [0] * n
+    result = []
+    queue = deque()
+    queue.append(v)
+    result.append(v)
+    visited[v] = True
+    while queue:
+        pt = queue.popleft()
+        for i in graph[pt]:
+            if not visited[i]:
+                visited[i] = True
+                queue.append(i)
+                result.append(i)
+    return result
 
-while len(queue) != 0:
-    temp = queue.pop(0)
-    for i in range(n):
-        if (field[temp][i] == 1) and (i not in rem1):
-            queue.append(i)
-            rem1.append(i)
-    res.append(temp)
+visited = [0] * n
+result = []
 
-for i in result:
-    print(i+1, end=' ')
-print()
-for i in res:
-    print(i+1, end=' ')
-print()
+def dfs(v):
+    visited[v] = True
+    result.append(v)
+    for i in graph[v]:
+        if not visited[i]:
+            dfs(i)
+
+
+dfs(v)
+for i in range(len(result)):
+     result[i] += 1
+print(*result, sep=' ')
+result = bfs(v)
+for i in range(len(result)):
+     result[i] += 1
+print(*result, sep=' ')
+
