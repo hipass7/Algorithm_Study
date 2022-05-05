@@ -1,7 +1,3 @@
-R = [0, 0]
+from itertools import product
 
-R_or = R[:]
-
-R[1] = 1
-
-print(R_or)
+print(type(int(list(product('0123', repeat=5))[0][0])))
