@@ -23,17 +23,16 @@ def dfs(cnt, arr):
     for k in direction[t]:
         temp = copy.deepcopy(arr)
         for i in range(len(k)):
-            if k[i] == 1:
-                nx, ny = x, y
-                while True:
-                    nx, ny = nx + dx[i], ny + dy[i]
-                    if 0 <= nx < n and 0 <= ny < m:
-                        if temp[nx][ny] == 6:
-                            break
-                        elif temp[nx][ny] == 0:
-                            temp[nx][ny] = '#'
-                    else:
+            nx, ny = x, y
+            while True:
+                nx, ny = nx + dx[i], ny + dy[i]
+                if 0 <= nx < n and 0 <= ny < m:
+                    if temp[nx][ny] == 6:
                         break
+                    elif temp[nx][ny] == 0:
+                        temp[nx][ny] = '#'
+                else:
+                    break
         dfs(cnt + 1, temp)
 
 
